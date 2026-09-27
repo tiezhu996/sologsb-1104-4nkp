@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { BlankPanel } from '../components/common/BlankPanel'
+import { ProcessCard } from '../components/common/ProcessCard'
 import { StepRail } from '../components/common/StepRail'
 import { SvgCanvas } from '../components/common/SvgCanvas'
 import { useStepOrder } from '../hooks/useStepOrder'
@@ -51,7 +52,13 @@ export default function StepBoard() {
       {steps.length === 0 ? (
         <BlankPanel title="当前类型尚无步骤" description="没有可编排的拆装动作，请先补充步骤数据。" />
       ) : (
-        <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
+        <div className="space-y-6">
+          <ProcessCard
+            jointTypeId={id}
+            steps={steps}
+            onLocateStep={setCurrentStep}
+          />
+          <div className="grid gap-6 xl:grid-cols-[360px_minmax(0,1fr)]">
           <section className="panel max-h-[720px] overflow-y-auto p-4">
             <div className="mb-4 flex items-center justify-between">
               <div>
@@ -94,6 +101,7 @@ export default function StepBoard() {
               emptyMessage="该步骤暂未绑定示意图"
             />
           </section>
+          </div>
         </div>
       )}
     </div>
